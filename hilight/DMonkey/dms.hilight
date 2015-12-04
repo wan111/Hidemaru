@@ -1,10 +1,13 @@
 //========================================================================================
 //
-//                    DMonkey用 強調表示・ツリー・カラー定義ファイル Ver1.0
-//                    2015/08/08
-//                    wan(thewanwan111@gmail.com)
+//                    DMonkey用 強調表示・ツリー・カラー定義ファイル Ver1.1
+//                    2015/12/04
 //
+//                    Copyright (c) 2015 wan <thewanwan111@gmail.com>
+//                    Released under the MIT license
+//                    http://opensource.org/licenses/mit-license.php
 //========================================================================================
+
 
 //========================================================================================
 //
@@ -31,7 +34,6 @@
 // 強調1      (01): 演算子
 //            (17): コンストラクタ
 // 強調2      (81): 定数
-//            (81): 条件コンパイル
 // 強調3     (161): オブジェクト
 //           (161): 各オブジェクトのメソッド
 // 強調4     (225): 予約語
@@ -43,8 +45,9 @@
 // 行の強調1  (21): クラス定義
 //            (21): 関数定義
 // 行の強調3 (165): Irvineスクリプトのイベント
-// 特に強調1  (19): アノテーション
-//
+// 特に強調1  (51): アノテーション
+// 特に強調2 (115): DMonkey 条件コンパイル
+// 
 // 強調表示の定義を単語補完に使用した際に不要な候補を減らし、また他と区別し易い様に
 // メソッドは".メソッド"のみを強調します。
 // Dorothy2の各commonスクリプトの強調はメソッド等をコメントアウトしてあります。
@@ -55,7 +58,7 @@
 //         (単一行): //
 // 文字定数(複数行): "～" , '～' , /～/
 //
-// 「/～/」は演算子と区別するため/の前が 行の先頭 case !^,&|:(= のものだけを対象にします。
+// 「/～/」は演算子と区別するため/の前が 行の先頭 case return !^,&|:(= のものだけを対象にします。
 // DMonkeyでは「'～'」内の「\'」をエスケープ文字列として認識しません。
 //
 //----------------------------------------ツリー定義--------------------------------------
@@ -96,11 +99,13 @@
 //######################## 強調表示2 : 定数 ###########################
 81,(?<!\c)[A-Z][A-Z0-9_]*(?!\c)
 
-//################### 強調表示2 : 条件コンパイル ######################
-81,^\s*@set @(SHORT_CIRCUIT|VERSION7)
-
 //################## 特に強調表示1 : アノテーション ###################
-19,^[/*\s]*(@\c+)(?\1)
+//-----------------------JSDoc, Closure Compiler-----------------------
+51,(?\1)^\s*(?:/\*\*|\*)?\s*(@(?:abstract|access|alias|arg(ument)?|augments|author|base|borrows|callback|class(desc(ription)?)?|code|const(ant)?|construct(or|s)?|copyright|default(value)?|define|deprecated|desc(ription)?|dict|emits|enum|event|example|exception|exports?|expose|extends|extern(al|s)|field([Oo]f)?|file([Oo]verview)?|final|fires|func(tion)?|global|host|ignore|implements|inherit([Dd]oc|s)|inner|instance|interface|kind|lends|license|link|listens|member([Oo]f)?|method([Oo]f)?|mix(es|in)|module|name(space)?|no(alias|collapse|compile|sideeffects)|over(ride|view)|package|param|preserve|private|projectdescription|prop(erty)?|protected|public|readonly|requires|returns?|scope|see|since|static|struct|summary|supported|suppress|template|this|throws|todo|tutorial|type(def)?|unrestricted|var(iation)?|version|virtual))
+51,^\{link(code|plain)?|tutorial\}
+
+//############## 特に強調表示2 : DMonkey 条件コンパイル ###############
+115,^\s*(@set\s+@(VERSION7|SHORT_CIRCUIT))
 
 //####################### 強調表示1 : 演算子 ##########################
 01,!
@@ -1932,8 +1937,8 @@
 //417,.setYmdhms
 //417,.definePPZ
 //417,.zeroPadding
-//417,.assemble
-//417,.buildFilename
+417,.assemble
+417,.buildFilename
 //417,.setFilename
 //417,.contentTypeToExt
 //417,.contentToExt
@@ -2384,10 +2389,55 @@
 //417,.toUTF8
 //417,.fromUnicode
 //417,.removeTags
-//417,.decodeCharRef
+417,.decodeCharRef
 //417,.unescape
 //417,.toSJIS
 //--------------------utf8_charref.dms 20140811.0--------------------
+//--------------------------Utils.dms 1.0----------------------------
+417,Utils
+417,.UNDEFINED 
+417,.isDorothy2A 
+417,.isDorothy2set 
+417,.isDorothy2setList 
+417,.isDOA 
+417,.isRentan 
+417,.queueFolder 
+417,.error
+417,.showError
+417,.isStr
+417,.toStr
+417,.toNumber
+417,.toInteger
+417,.objToPrimitive
+417,.strToPrimitive
+417,.extractName
+417,.extractExt
+417,.formatTemplate
+//417,.call
+//417,.apply
+417,.getObject
+417,.keys
+417,.extend
+417,.objCreate
+417,.inherits
+417,.mixin
+417,.bind
+417,.strToDateTime
+417,.dateTimeToStr
+417,.setFolderData
+417,.getScriptVersion
+417,.getSavePath
+417,.getQueueFolderPath
+417,.getUserPath
+417,.getUserIniPath
+417,.getVersionDorothy2A
+417,.getVersionDorothy2set
+417,.getVersionDOA
+417,.setDOA_IT
+417,.getCommentOption
+417,.getCommentOptions
+417,.redefineDorothy
+
 //--------------------------winmm.dms 1.00---------------------------
 417,winmm
 //417,.dll
@@ -9825,7 +9875,7 @@
 /<HilightMulti>
 /0003,00000002,00,00,00000002,"/*",00000002,"*/"
 /0003,00000003,00,00,00000002,"//",00000002,""
-/0014,00000002,00,5C,00010003,"(?\\2)(^|case|[!^,&|:(=])\\s*(/)",00000002,"/"
+/0014,00000002,00,5C,00010003,"(?\\2)(^|case|return|[!^,&|:(=])\\s*(/)",00000002,"/"
 /0014,00000002,00,00,00000002,"'",00000002,"'"
 /0014,00000002,00,5C,00000002,"\"",00000002,"\""
 
