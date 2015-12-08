@@ -47,7 +47,7 @@
 // 行の強調3 (165): Irvineスクリプトのイベント
 // 特に強調1  (51): アノテーション
 // 特に強調2 (115): DMonkey 条件コンパイル
-// 
+//
 // 強調表示の定義を単語補完に使用した際に不要な候補を減らし、また他と区別し易い様に
 // メソッドは".メソッド"のみを強調します。
 // Dorothy2の各commonスクリプトの強調はメソッド等をコメントアウトしてあります。
@@ -1982,7 +1982,7 @@
 //417,.popupNew
 //417,.popupUpdate
 //417,.folderPath
-//417,.Form 
+//417,.Form
 //417,.Form2
 //417,.getFolder
 //417,.onClose
@@ -2395,13 +2395,13 @@
 //--------------------utf8_charref.dms 20140811.0--------------------
 //--------------------------Utils.dms 1.0----------------------------
 417,Utils
-417,.UNDEFINED 
-417,.isDorothy2A 
-417,.isDorothy2set 
-417,.isDorothy2setList 
-417,.isDOA 
-417,.isRentan 
-417,.queueFolder 
+417,.UNDEFINED
+417,.isDorothy2A
+417,.isDorothy2set
+417,.isDorothy2setList
+417,.isDOA
+417,.isRentan
+417,.queueFolder
 417,.error
 417,.showError
 417,.isStr
